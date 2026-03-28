@@ -1,0 +1,104 @@
+ID,Caption
+ImageCLEFmedical_Caption_2026_valid_0,"MRI of the brain showing the pituitary gland and surrounding structures. The corpus callosum appears slightly compressed. There is mild hypointensity in the T1-weighted images, potentially indicating gliosis or a small lesion. The overall structure appears normal.
+(Note: The provided captions are for reference only and do not reflect the actual content of the image.)"
+ImageCLEFmedical_Caption_2026_valid_1,"thought
+The user wants me to generate a caption for the provided medical image, which is an axial T2/FLAIR MRI of the brain. I need to describe the key features visible in the image, similar to the provided examples, focusing on medical terminology.
+1.  **Identify the image type:** It's an axial MRI of the brain.
+2.  **Identify the specific sequence:** The image looks like a T2 or FLAIR sequence due to the increased signal in the white matter.
+3.  **Identify key findings:** There are areas of increased signal intensity (hyperintensity) in the white matter, particularly in the periventricular regions (suggesting periventricular leukomalacia or chronic small vessel ischemic changes) and possibly extending into the subcortical regions. The ventricles appear relatively normal in size. No obvious structural abnormalities like masses or significant atrophy are immediately apparent, although some degree of atrophy might be present.
+4.  **Synthesize a description:** Based on the findings, a plausible description would be: ""Axial T2/FLAIR MRI of the brain showing increased signal intensity in the periventricular and subcortical white matter.""
+5.  **Refine the description:** Add context if possible (though not strictly necessary for a basic caption). The pattern could suggest chronic microvascular changes.
+Let's try to combine the elements from the example captions and the visual observation:
+-   ""Axial T2/FLAIR MRI brain"" - Matches the image type and sequence.
+-   ""Symmetrical areas of increased signal intensity"" - Describes the main finding.
+-   ""in the periventricular and subcortical white matter"" - Specifies the location.
+-   ""consistent with chronic microvascular changes"" - Suggests a potential etiology, though this is an interpretation.
+The example captions are good but sometimes quite specific (e.g., ""occipital lobes"", ""cerebral and cerebellar atrophy"", ""intraparenchymal brain metastasis""). The provided image doesn't clearly show those specific findings. The most prominent feature is the white matter signal abnormality.
+Therefore, a good caption would be:
+""Axial T2/FLAIR MRI brain showing symmetrical areas of increased signal intensity in the periventricular and subcortical white matter.""
+This description accurately reflects the visual information without making definitive diagnoses or over-interpreting. It matches the style and level of detail seen in the provided examples.<unused95>Axial"
+ImageCLEFmedical_Caption_2026_valid_2,MRI of the lumbar spine showing an epidural hematoma.
+ImageCLEFmedical_Caption_2026_valid_3,Intraoperative X-ray showing the left hip joint after explantation of the femoral component. An antibiotic spacer is visible in the acetabulum. The femoral component is marked with a yellow arrow. A periosteal reaction is visible on the left proximal femur. The femoral component is marked with a green arrow. There is loosening of the femoral component. The image is an anteroposterior (AP) view.
+ImageCLEFmedical_Caption_2026_valid_4,"Intraoperative AP pelvis view showing a right hip hemiarthroplasty and a left femur intramedullary nail. The arrows point to the right hip hemiarthroplasty and the left femur intramedullary nail.
+```"
+ImageCLEFmedical_Caption_2026_valid_5,Intra-articular fracture of the left posterior wall of the acetabulum.
+ImageCLEFmedical_Caption_2026_valid_6,"Intraoperative lateral view of a surgical procedure on a bone, likely the femur or humerus, showing multiple screws secured to the bone. The presence of screws suggests a fixation procedure, possibly for fracture repair or joint reconstruction. The image is presented in a circular format, characteristic of a C-arm imaging technique."
+ImageCLEFmedical_Caption_2026_valid_7,A pelvic radiograph showing a prosthesis in the left hip joint. There are metal screws visible at the base of the femur. The right hip is not visible.
+ImageCLEFmedical_Caption_2026_valid_8,"Intraoperative X-ray of a total hip arthroplasty revision case. The prosthesis is cemented.
+```json
+[
+  {""box_2d"": [253, 451, 559, 721], ""label"": ""total hip arthroplasty""},
+  {""box_2d"": [487, 460, 842, 778], ""label"": ""femur""},
+  {""box_2d"": [0, 223, 975, 845], ""label"": ""hip""},
+  {""box_2d"": [456, 490, 753, 763], ""label"": ""total hip arthroplasty""}
+]
+```"
+ImageCLEFmedical_Caption_2026_valid_9,"This is a radiograph of a post-operative right hip joint. There are three screws visible in the pelvis, likely indicating a previous Salter osteotomy. The femoral head appears elongated and flattened, with signs of osteonecrosis and joint space narrowing."
+ImageCLEFmedical_Caption_2026_valid_10,Intraoperative X-ray of the hip joint showing a total hip replacement with hardware visible.
+ImageCLEFmedical_Caption_2026_valid_11,"image of a hip X-ray showing hardware placement in the pelvis. Orthopedic hardware is visible in the proximal femur and distal femur. There appears to be some bone loss in the femoral head.
+```json
+[
+  {""box_2d"": [58, 201, 872, 864], ""label"": ""hip joint""},
+  {""box_2d"": [451, 259, 655, 604], ""label"": ""femur""},
+  {""box_2d"": [402, 406, 653, 604], ""label"": ""femur""},
+  {""box_2d"": [58, 201, 872, 864], ""label"": ""hip""},
+  {""box_2d"": [524, 480, 653, 604], ""label"": ""femur""},
+  {""box_2d"": [349, 359, 653, 604], ""label"": ""femur""},
+  {""box_2d"": [526, 478, 653, 606], ""label"": ""femur""},
+  {""box_2d"": [537, 483, 653, 603], ""label"": ""femur""},
+  {""box_2d"": [558, 486, 676, 604], ""label"": ""femur""},
+  {""box_2d"": [572, 484, 675, 607], ""label"": ""femur""},
+  {""box_2d"": [551, 482, 674, 602], ""label"": ""femur""},
+  {""box_2d"": [551, 480, 676, 603], ""label"": ""femur""},
+  {""box_2d"": [560, 481, 677, 602], ""label"": ""femur""},
+  {""box_2d"": [552, 48"
+ImageCLEFmedical_Caption_2026_valid_12,"label: T1 MRI of the knee showing the anterior cruciate ligament (ACL) and posterior cruciate ligament (PCL). The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    The ACL is indicated by a red arrow pointing to the anterior cruciate ligament. The PCL is indicated by a blue arrow pointing to the posterior cruciate ligament. The knee joint is shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown.
+    MRI of the knee showing the ACL and PCL. The ACL is indicated by a red arrow, and the PCL is indicated by a blue arrow. The knee joint is also shown."
+ImageCLEFmedical_Caption_2026_valid_13,"An MRI image of the right knee showing the proximal, distal, and middle regions of interest (ROI) of the intra-articular graft, and the location of the quadriceps tendon and background ROI. The knee joint is shown in a sagittal view. Measurement of the patellotrochlear index (PTI) is indicated. The image also shows the distal femur and proximal tibia.
+```json
+[
+  {""box_2d"": [130, 516, 838, 541], ""label"": ""distal femur""},
+  {""box_2d"": [127, 380, 846, 539], ""label"": ""patella""},
+  {""box_2d"": [263, 426, 833, 540], ""label"": ""distal femur""},
+  {""box_2d"": [626, 434, 833, 539], ""label"": ""distal femur""},
+  {""box_2d"": [328, 426, 838, 541], ""label"": ""distal femur""},
+  {""box_2d"": [127, 379, 846, 542], ""label"": ""patella""},
+  {""box_2d"": [558, 420, 838, 541], ""label"": ""distal femur""},
+  {""box_2d"": [126, 377, 846, 541], ""label"": ""patella""},
+  {""box_2d"": [90, 439, 795, 539], ""label"": ""distal femur""},
+  {""box_2d"": [127, 377, 846, 541], ""label"": ""patella""},
+  {""box_2d"": [326, 424, 838, 541], ""label"": ""distal femur""},
+  {""box_2d"": [641, 431, 838, 539], ""label"": ""distal femur""},
+  {"""
+ImageCLEFmedical_Caption_2026_valid_14,"MRI of the knee showing a small intra-articular lipoma near the posterior cruciate ligament (PCL), indicated by the white arrow. The image is a sagittal view. The lipoma appears hyperintense on T2-weighted sequences (implied)."
+ImageCLEFmedical_Caption_2026_valid_15,"A CT scan of the abdomen showing air in the peritoneal cavity, indicated by the red arrow. This could be due to a pneumoperitoneum."
+ImageCLEFmedical_Caption_2026_valid_16,"The image displays a CT scan of the skull base. A prominent lesion is visible within the skull cavity, indicated by a red arrow. It appears to be a soft tissue mass. Additionally, a fracture line is pointed out by a dotted arrow, suggesting a possible fracture in the skull. The surrounding bone structures, including the skull bones, are also visible.
+```json
+{
+""prompt"": ""Image of a CT scan of the skull base with a visible lesion and a possible fracture."",
+""negative_prompt"": ""The image shows a CT scan of the skull base with a visible lesion and a possible fracture."",
+""created"": ""2023-10-27T10:00:00Z""
+}
+```"
+ImageCLEFmedical_Caption_2026_valid_17,"Extensive subperiosteal emphysema in the skull, indicated by the red arrow. This is a CT scan view of the head."
+ImageCLEFmedical_Caption_2026_valid_18,"FINDINGS: Gallbladder (GB) with a gallstone (arrow). Ultrasound findings consistent with cholelithiasis.
+IMPRESSION: Cholelithiasis."
+ImageCLEFmedical_Caption_2026_valid_19,"Axial CT image of the abdomen showing a dilated appendix with wall thickening, suggestive of acute appendicitis. A linear hyperdense structure is also visible."
+ImageCLEFmedical_Caption_2026_valid_20,"A chest X-ray showing a left pleural effusion.
+```json
+[
+  {""box_2d"": [360, 561, 746, 769], ""label"": ""left pleural effusion""}
+]
+```"
+ImageCLEFmedical_Caption_2026_valid_21,A CT scan of the maxilla shows a radiopaque lesion in the right maxillary sinus.
+ImageCLEFmedical_Caption_2026_valid_22,"A transabdominal ultrasound image showing a fetus, with a green rectangle highlighting the fetal heart. The heart appears enlarged and has a possibly abnormal shape. The image displays color Doppler, showing blood flow within the fetal heart. The image is taken in the short-axis view. The scale indicates the speed of sound in the medium, with the value -12.5 cm/s. The image shows a marked difference in the color intensity of the blood flow, with a bright orange color in the left ventricle and a deep blue color in the right ventricle. The fetus appears to be at the 22nd week of gestation. The text ""S"" and ""4"" are visible on the left side of the image. The text ""12.5"" and ""cm/s"" are visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is visible on the right side of the image. The text ""22"" is"

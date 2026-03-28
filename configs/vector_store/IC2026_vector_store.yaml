@@ -1,0 +1,9 @@
+folders:
+  embeddings_dir: "/home/ia368/projetos/imageclef2026-rag/artifacts/embeddings"
+  vector_store_dir: "/home/ia368/projetos/imageclef2026-rag/artifacts/vector_store"
+
+files:
+  captions: "IC2026_medsiglip_train_captions.pt"
+  image: "IC2026_medsiglip_train_image_embeddings.pt"
+  text: "IC2026_medsiglip_train_text_embeddings.pt"
+

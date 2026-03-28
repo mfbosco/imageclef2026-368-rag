@@ -1,0 +1,31 @@
+# RAG Prompt Evaluation Configuration for run_med_gemma.py
+
+# Model Configuration
+device: 'cuda'
+
+model:
+  model_id: "google/medgemma-4b-it"
+  use_quantization: true
+  attn_implementation: "eager"
+
+medsiglip:
+  model: "google/medsiglip-448"
+  auth_token: ""
+
+dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_valid_dataset.json"
+
+rag:
+  rag_top_k: 3
+  faiss_index_path: "/home/ia368/projetos/imageclef2026-rag/artifacts/vector_store/IC2026_image_faiss.index"
+  train_captions: "/home/ia368/projetos/imageclef2026-rag/artifacts/embeddings/IC2026_medsiglip_train_captions.pt"
+
+# Inference Evaluation Configuration (for run_med_gemma.py)
+evaluation:
+  prompt_strategy: "rag"  # Options: "simple", "few_shot", "rag"
+  use_base_model: true  # If true, use base model; if false, try to load fine-tuned model
+  eval_on_val: false  # If true, evaluate on validation set; if false, use test set
+  compute_metrics: false  # If true, compute BERTScore and ROUGE (requires eval_on_val=true)
+  n_few_shot: 0  # Number of few-shot examples (0 for simple prompt)
+  max_new_tokens: 512
+  temperature: 0.7
+  # Note: CSV output path is automatically generated as: config_name_project_run_name_datetime.csv

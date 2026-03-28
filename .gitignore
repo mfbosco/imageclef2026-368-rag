@@ -1,0 +1,26 @@
+# ignore .env with sensitive information
+.env
+
+# ignore wandb files
+wandb/
+
+# ignore medgemma fine tuning files
+medgemma-4b-it-sft-lora-crc100k
+
+# ignore evaluation files
+evaluation/
+
+# ignore data files
+dev_caption/
+
+# ignore artifacts with large files
+artifacts/datasets/
+artifacts/embeddings/
+artifacts/embeddings_roco/
+artifacts/fine_tuning/
+artifacts/vector_store/
+
+# other files to ignore
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

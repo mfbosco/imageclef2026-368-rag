@@ -1,0 +1,14 @@
+medsiglip:
+  model: "google/medsiglip-448"
+  auth_token: ""
+
+dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2024_train_dataset.json"
+
+parameters:
+  batch_size: 32
+
+device: 'cuda'
+
+output_dir: "/home/ia368/projetos/imageclef2026-rag/artifacts//embeddings"
+
+output_name: "IC2024_medsiglip_train"

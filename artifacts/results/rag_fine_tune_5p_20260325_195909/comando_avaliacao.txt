@@ -1,0 +1,5 @@
+docker run --rm --gpus all \
+  -v "/home/ia368/projetos/imageclef2026-rag/artifacts/results/rag_fine_tune_5p_20260325_195909/rag_prompt_fine_tuned_imageclef2026-rag_rag_fine_tune_5p_20260325_195909.csv:/app/submission.csv" \
+  -v "/home/ia368/projetos/imageclef2026-rag/evaluation/caption_prediction/precomputed:/app/precomputed" \
+  -v "/home/ia368/projetos/imageclef2026-rag/artifacts/results/rag_fine_tune_5p_20260325_195909:/app/output" \
+  caption_prediction_evaluator valid

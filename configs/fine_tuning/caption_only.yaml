@@ -1,0 +1,7 @@
+dataset_train: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_train_dataset.json"
+
+dataset_valid: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_valid_dataset.json"
+
+SAVED_MODEL_PATH: "/home/ia368/projetos/imageclef2026-rag/artifacts/fine_tuning/medgemma_lora_full.pt"
+
+output_dir: "/home/ia368/projetos/imageclef2026-rag/artifacts/fine_tuning/medgemma-4b-it-sft-lora-full-train-IC2026"
