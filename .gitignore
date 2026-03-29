@@ -23,4 +23,6 @@ artifacts/vector_store/
 # other files to ignore
 __pycache__/
 *.pyc
+nohup.out
+train.log
 .ipynb_checkpoints/

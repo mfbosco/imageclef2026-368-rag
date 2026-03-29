@@ -258,9 +258,9 @@ def main():
     args_config = dict(
         output_dir=config["output_dir"],
         num_train_epochs=1 if debug else 5,
-        per_device_train_batch_size=3,
-        per_device_eval_batch_size=2,
-        gradient_accumulation_steps=1 if debug else 5,
+        per_device_train_batch_size=2,
+        per_device_eval_batch_size=1,
+        gradient_accumulation_steps=1 if debug else 8,
         gradient_checkpointing=True,
         optim="adamw_torch_fused",
         logging_steps=1 if debug else 50,
