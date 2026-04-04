@@ -94,6 +94,19 @@ def generate_prediction(
     # Basic cleanup - just strip whitespace
     return generated_text.strip()
 
+def sanitize_caption_for_csv(text: str) -> str:
+    """
+    Ensure caption is single-line and stable for CSV export.
+    """
+    if text is None:
+        return ""
+
+    # Remove line breaks to guarantee one CSV row per sample.
+    text = str(text).replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
+    # Collapse repeated whitespace.
+    text = " ".join(text.split())
+    return text.strip()
+
 def retrieve_examples_from_faiss(
     image,
     model_siglip,
@@ -177,7 +190,13 @@ def run_evaluation(
     # Initialize CSV file with header
     print(f"Writing predictions to {output_csv_path} in real-time...")
     with open(output_csv_path, 'w', newline='', encoding='utf-8') as csvfile:
-        writer = csv.writer(csvfile)
+        writer = csv.writer(
+            csvfile,
+            quoting=csv.QUOTE_ALL,
+            quotechar='"',
+            doublequote=True,
+            lineterminator='\n',
+        )
         writer.writerow(['ID', 'Caption'])  # Header
         
         # Run inference and write to CSV in real-time
@@ -233,8 +252,14 @@ def run_evaluation(
                 temperature=temperature,
             )
             
+            # Sanitize caption before CSV write to avoid embedded newlines.
+            prediction = sanitize_caption_for_csv(prediction)
+            #if "\n" in prediction or "\r" in prediction:
+            #    raise ValueError(f"Caption still contains line break for ID {image_id}")
+
             # Write immediately to CSV
             writer.writerow([image_id, prediction])
+
             csvfile.flush()  # Ensure data is written to disk immediately
             
             predictions.append(prediction)
