@@ -406,7 +406,7 @@ def main():
     ## alterado para criar pasta com os resultados de cada execução
     csv_output_dir = f"artifacts/results/{run_name}_{current_datetime}"
     os.makedirs(csv_output_dir, exist_ok=True)
-    csv_output_path = f"{csv_output_dir}/{config_basename}_{project_name}_{run_name}_{current_datetime}.csv"
+    csv_output_path = f"{csv_output_dir}/{config_basename}_{project_name}_{current_datetime}.csv"
 
     print(f"Predictions will be written to: {csv_output_dir}/{csv_output_path}")
     
