@@ -3,12 +3,12 @@
 # Model Configuration
 device: 'cuda'
 
+dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_valid_dataset.json"
+
 model:
   model_id: "google/medgemma-4b-it"
   use_quantization: true
   attn_implementation: "eager"
-
-dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_valid_dataset.json"
 
 # Inference Evaluation Configuration (for run_med_gemma.py)
 evaluation:
