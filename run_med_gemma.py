@@ -3,6 +3,7 @@
 Run inference and evaluation on ImageClef test/validation set.
 Supports different prompt strategies (simple, few-shot, RAG, etc.) with base or fine-tuned models.
 """
+#from email import parser
 import os
 import sys
 import yaml
@@ -157,6 +158,9 @@ def run_evaluation(
     vector_store: Any = None,
     train_captions_faiss: List = None,
     rag_top_k: int = None,
+    start_idx: int = 0,
+    end_idx: Optional[int] = None,
+    resume_csv: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Run evaluation on test set with specified prompt strategy.
@@ -174,7 +178,9 @@ def run_evaluation(
         seed: Random seed (currently unused - few-shot examples are randomized per image)
         output_csv_path: Path to CSV file for real-time output (required)
         debug: If True, only run 2 evaluation steps (for debugging)
-        
+        start_idx: Starting index for dataset slice (inclusive)
+        end_idx: Ending index for dataset slice (exclusive)
+        resume_csv: Path to existing CSV file to resume execution and append new predictions
     Returns:
         Dictionary with predictions and metadata
         
@@ -188,8 +194,34 @@ def run_evaluation(
         raise ValueError("output_csv_path is required for real-time CSV output")
     
     # Initialize CSV file with header
+    total_samples = len(test_dataset)
+
+    if end_idx is None:
+        end_idx = total_samples
+
+    if start_idx < 0 or end_idx < 0:
+        raise ValueError("start_idx and end_idx must be >= 0")
+
+    if start_idx >= end_idx:
+        raise ValueError(f"Invalid range: start_idx={start_idx}, end_idx={end_idx}")
+
+    if end_idx-1 > total_samples: 
+        raise ValueError(f"end_idx={end_idx} exceeds dataset size ({total_samples})")
+
+    existing_ids = set()
+    csv_exists = resume_csv is not None and os.path.exists(output_csv_path)
+    file_mode = "a" if csv_exists else "w"
+
+    if csv_exists:
+        with open(output_csv_path, "r", newline="", encoding="utf-8") as existing_file:
+            reader = csv.reader(existing_file)
+            next(reader, None)
+            for row in reader:
+                if row:
+                    existing_ids.add(row[0])
+
     print(f"Writing predictions to {output_csv_path} in real-time...")
-    with open(output_csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+    with open(output_csv_path, file_mode, newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(
             csvfile,
             quoting=csv.QUOTE_ALL,
@@ -197,7 +229,8 @@ def run_evaluation(
             doublequote=True,
             lineterminator='\n',
         )
-        writer.writerow(['ID', 'Caption'])  # Header
+        if file_mode == "w":
+            writer.writerow(["ID", "Caption"])
         
         # Run inference and write to CSV in real-time
         predictions = []
@@ -205,19 +238,24 @@ def run_evaluation(
         
         # Limit to 2 steps in debug mode
         num_samples = 2 if debug else len(test_dataset)
+        effective_end_idx = min(end_idx, start_idx + 2) if debug else end_idx
         if debug:
-            print(f"DEBUG MODE: Running evaluation on only {num_samples} samples...")
+            print(f"DEBUG MODE: Running evaluation on only {effective_end_idx - start_idx} samples...")
         else:
-            print(f"Running evaluation on {len(test_dataset)} test samples...")
+            print(f"Running evaluation on {effective_end_idx - start_idx} test samples...")
         if n_few_shot > 0:
             if train_dataset is None:
                 raise ValueError("train_dataset is required when n_few_shot > 0")
             print(f"Using {n_few_shot} randomly selected few-shot examples per image")
         
-        for idx in tqdm(range(num_samples), desc="Evaluation"):
+        # Set range for evaluation based on start_idx and end_idx arguments
+        for idx in tqdm(range(start_idx, effective_end_idx), desc="Evaluation"):
             sample = test_dataset[idx]
             image = sample["image"]
             image_id = sample.get("id", f"sample_{idx}")
+
+            if image_id in existing_ids:
+                continue
             
             # Select random few-shot examples for this image (different for each image)
             few_shot_examples = None
@@ -291,6 +329,25 @@ def main():
         action="store_true",
         help="Debug mode: disable wandb logging and run only 2 steps"
     )
+    # Arguments to add option off run script for only a subset of the data for resume cases
+    parser.add_argument(
+        "--start_idx",
+        type=int,
+        default=0,
+        help="Indice inicial inclusivo do dataset"
+    )
+    parser.add_argument(
+        "--end_idx",
+        type=int,
+        default=None,
+        help="Indice final exclusivo do dataset"
+    )
+    parser.add_argument(
+        "--resume_csv",
+        type=str,
+        default=None,
+        help="CSV existente para retomar execucao e anexar novas predicoes"
+    )
     args = parser.parse_args()
     
     # Load environment variables
@@ -320,6 +377,9 @@ def main():
     compute_metrics = eval_config.get("compute_metrics", False)
     # Debug can come from config or command line (command line takes precedence)
     debug = args.debug or eval_config.get("debug", False)
+    # Start and end indices for dataset slicing (for resume/debug purposes)
+    start_idx = args.start_idx
+    end_idx = args.end_idx
     
     if compute_metrics and not eval_on_val:
         raise ValueError("compute_metrics requires eval_on_val=true (test set has no ground truth)")
@@ -404,11 +464,16 @@ def main():
     
     # Build CSV filename
     ## alterado para criar pasta com os resultados de cada execução
-    csv_output_dir = f"artifacts/results/{run_name}_{current_datetime}"
-    os.makedirs(csv_output_dir, exist_ok=True)
-    csv_output_path = f"{csv_output_dir}/{config_basename}_{project_name}_{current_datetime}.csv"
-
-    print(f"Predictions will be written to: {csv_output_dir}/{csv_output_path}")
+    if args.resume_csv is not None:
+        csv_output_path = args.resume_csv
+        csv_output_dir = os.path.dirname(csv_output_path) or "."
+        os.makedirs(csv_output_dir, exist_ok=True)
+    else:
+        csv_output_dir = f"artifacts/results/{run_name}_{current_datetime}"
+        os.makedirs(csv_output_dir, exist_ok=True)
+        csv_output_path = f"{csv_output_dir}/{config_basename}_{project_name}_{current_datetime}.csv"
+    
+    print(f"Predictions will be written to: {csv_output_path}")
     
     # Setup wandb if configured (skip in debug mode)
     if config["output"]["report_to"] == "wandb" and not debug:
@@ -434,7 +499,7 @@ def main():
     print("="*60)
     
     # Get sample image and few-shot examples
-    sample_idx = 0
+    sample_idx = 0 if start_idx is None else start_idx
     sample = eval_dataset[sample_idx]
     sample_image = sample["image"]
     sample_id = sample.get("id", f"sample_{sample_idx}")
@@ -509,7 +574,10 @@ def main():
         processor_siglip=processor_siglip,
         vector_store=vector_store,
         train_captions_faiss=train_captions_faiss,
-        rag_top_k=rag_top_k
+        rag_top_k=rag_top_k,
+        start_idx=start_idx,
+        end_idx=end_idx,
+        resume_csv=args.resume_csv,
     )
     
     print(f"\nGenerated {len(results['predictions'])} predictions")
