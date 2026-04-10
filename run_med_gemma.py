@@ -205,7 +205,7 @@ def run_evaluation(
     if start_idx >= end_idx:
         raise ValueError(f"Invalid range: start_idx={start_idx}, end_idx={end_idx}")
 
-    if end_idx-1 > total_samples: 
+    if end_idx > total_samples: 
         raise ValueError(f"end_idx={end_idx} exceeds dataset size ({total_samples})")
 
     existing_ids = set()

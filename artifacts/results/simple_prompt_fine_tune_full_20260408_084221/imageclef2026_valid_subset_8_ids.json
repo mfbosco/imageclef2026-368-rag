@@ -1,0 +1,42 @@
+[
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_12807.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_12807",
+    "caption": "Brain MRI in T2 sequence: picture compatible with meningoencephalitis associated with hypoxic suffering. Infratentorial empyema with small amounts of pus in ventricles supratentorially. Enlargement of lateral ventricles."
+  },
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_12808.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_12808",
+    "caption": "The scoring of the teeth on a panoramic radiograph according to the Demirjian (yellow), Nolla (blue), and Willems (yellow) methods."
+  },
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_12809.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_12809",
+    "caption": "Lateral cephalogram of patient in skeletal Class-II malocclusion."
+  },
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_12810.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_12810",
+    "caption": "A transvaginal ultrasound sagittal view demonstrated endometrium thickening up to 14 mm."
+  },
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_12811.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_12811",
+    "caption": "Axial T1-weighted MRIAxial T1-weighted MRI showed a markedly high-intensity area in the globus pallidum."
+  },
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_12812.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_12812",
+    "caption": "Magnetic resonance angiography (MRA) perforator mapping of the abdomen. The image shows patient right (R) and left (L) perforator locations in relation to the umbilicus (UMB)."
+  },
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_12813.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_12813",
+    "caption": "Magnetic resonance image on day two after embolization. Axial T2-weighted magnetic resonance image shows a hematoma within the broad ligament (arrow) adjacent to the postpartum uterus (asterisk) and hemoperitoneum (arrowhead). A continuous hematoma is observed from the thrombosed uterine artery pseudoaneurysm to the abdominal cavity, suggesting laceration of the left broad ligament (dotted circle)."
+  },
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_12814.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_12814",
+    "caption": "Echocardiogram showing an apical thrombus. The thrombus dimension was 29mm x 14mm in the patient with an anterolateral wall ST-elevation myocardial infarction (STEMI)."
+  }
+]
