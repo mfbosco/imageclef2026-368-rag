@@ -42,7 +42,7 @@ class SimplePromptBuilder(PromptBuilder):
     SYSTEM_PROMPT = """You are a medical image captioning system for imageClef 2026. 
 Output only the caption, no other text. Do not return any special character like row breaks or similar."""
     
-    PROMPT_TEXT = "Caption this image."
+    PROMPT_TEXT = "Provide a precise and concise caption for this medical image."
     
     def __init__(self):
         """Initialize simple prompt builder."""
@@ -110,7 +110,7 @@ class FewShotPromptBuilder(PromptBuilder):
 You will receive example images with their captions from the training set, followed by an image to caption. 
 Use the examples to guide your caption style and format. Output only the caption, no other text."""
     
-    PROMPT_TEXT = "Caption this image."
+    PROMPT_TEXT = "Provide a precise and concise caption for this medical image."
     
     def __init__(self, max_concepts_per_example: int = 10):
         """
@@ -266,7 +266,7 @@ class RAGPromptBuilder(PromptBuilder):
 
     {retrieved_captions}
 
-    Now caption this image."""
+    Now provide a precise and concise caption for this medical image."""
 
     def __init__(self, max_rag_examples: int = 10):
         """Initialize RAG prompt builder."""
