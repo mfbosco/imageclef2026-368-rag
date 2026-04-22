@@ -70,47 +70,86 @@ def load_model(model_id):
 # Collate
 # =========================
 def build_collate_fn(processor):
+    # ---- Instruction prompt ----
+    PROMPT = (
+        "You are a medical expert. Analyze the image and return ONLY a valid JSON "
+        "with the format: {\"Caption\": \"...\", \"CUI\": [{\"id\": \"...\", \"name\": \"...\"}]}. "
+        "Caption must be concise and clinically accurate."
+    )
+
     def collate_fn(examples: list[dict[str, Any]]):
         texts = []
         images = []
 
         for example in examples:
+            # ---- Build structured target ----
+            structured_cui = sorted(
+                example.get("cui", []),
+                key=lambda x: x["id"]
+            )
+
+            target_json = {
+                "Caption": example["caption"],
+                "CUI": structured_cui
+            }
+
+            target_text = json.dumps(
+                target_json,
+                separators=(",", ":"),
+                ensure_ascii=False
+            )
+
+            # ---- Build chat messages ----
             messages = [
                 {
                     "role": "user",
                     "content": [
                         {"type": "image"},
-                        {"type": "text", "text": "You are a medical expert. Provide a precise and concise caption for this medical image."}
+                        {"type": "text", "text": PROMPT}
                     ],
+                },
+                # -- example for json consistency -- #
+                {
+                    "role": "assistant",
+                    "content": '{"Caption":"Normal chest X-ray","CUI":[{"id":"C0817096","name":"Normal chest X-ray"}]}',
                 },
                 {
                     "role": "assistant",
-                    "content": example["caption"],
+                    "content": target_text,
                 },
             ]
 
             images.append([example["image"]])
-            texts.append(processor.apply_chat_template(
+
+            text = processor.apply_chat_template(
                 messages,
                 add_generation_prompt=False,
                 tokenize=False
-            ).strip())
+            ).strip()
 
-        batch = processor(text=texts, images=images, return_tensors="pt", padding=True)
+            texts.append(text)
+
+        # ---- Tokenization ----
+        batch = processor(
+            text=texts,
+            images=images,
+            return_tensors="pt",
+            padding=True
+        )
 
         labels = batch["input_ids"].clone()
 
-        image_token_id = [
-            processor.tokenizer.convert_tokens_to_ids(
-                processor.tokenizer.special_tokens_map["boi_token"]
-            )
-        ]
-
+        # ---- Mask padding ----
         labels[labels == processor.tokenizer.pad_token_id] = -100
+
+        # ---- Mask image tokens (FIXED) ----
+        image_token_id = processor.tokenizer.convert_tokens_to_ids(
+            processor.tokenizer.special_tokens_map["boi_token"]
+        )
         labels[labels == image_token_id] = -100
-        labels[labels == 262144] = -100
 
         batch["labels"] = labels
+
         return batch
 
     return collate_fn
