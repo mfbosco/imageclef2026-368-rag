@@ -133,6 +133,10 @@ def generate_image_embedding(model, processor, image, device):
 
         feats = feats / feats.norm(dim=-1, keepdim=True)
 
+    # Clean up
+    del inputs
+    torch.cuda.empty_cache()
+    
     return feats.squeeze(0).cpu()
 
 

@@ -68,11 +68,14 @@ def generate_prediction(
     
     # Apply chat template and process
     text = processor.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
-    inputs = processor(text=[text], images=[images_list], return_tensors="pt", padding=True)
+    inputs = processor(text=[text], images=[images_list], return_tensors="pt")
     
     # Move to device
     device = next(model.parameters()).device
     inputs = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
+    
+    # Clear cache before generation
+    torch.cuda.empty_cache()
     
     # Generate
     with torch.no_grad():
@@ -91,6 +94,11 @@ def generate_prediction(
     
     # Manually remove <end_of_turn> tokens if present
     generated_text = generated_text.replace("<end_of_turn>", "").strip()
+    
+    # Clean up GPU memory
+    del inputs
+    del generated_ids
+    torch.cuda.empty_cache()
     
     # Basic cleanup - just strip whitespace
     return generated_text.strip()
@@ -252,6 +260,9 @@ def run_evaluation(
         for idx in tqdm(range(start_idx, effective_end_idx), desc="Evaluation"):
             sample = test_dataset[idx]
             image = sample["image"]
+
+            if image.size[0] > 1024:
+                image = image.resize((750, 450))
             image_id = sample.get("id", f"sample_{idx}")
 
             if image_id in existing_ids:
@@ -502,6 +513,8 @@ def main():
     sample_idx = 0 if start_idx is None else start_idx
     sample = eval_dataset[sample_idx]
     sample_image = sample["image"]
+    if sample_image.size[0] > 1024:
+        sample_image = sample_image.resize((750, 450))
     sample_id = sample.get("id", f"sample_{sample_idx}")
     
     sample_few_shot_examples = None
