@@ -28,3 +28,4 @@ __pycache__/
 nohup.out 
 # log file generated during training
 train.log 
+run_med_gemma.log
