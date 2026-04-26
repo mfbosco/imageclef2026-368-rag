@@ -1,0 +1,11 @@
+dataset_train: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/IC2026_Caption_RAG_train.json"
+
+dataset_valid: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/IC2026_Caption_RAG_valid.json"
+
+SAVED_MODEL_PATH: "/home/ia368/projetos/imageclef2026-rag/artifacts/fine_tuning/qwen_rag_full.pt"
+
+output_dir: "/home/ia368/projetos/imageclef2026-rag/artifacts/fine_tuning/qwen_rag_full_lora"
+
+valid_subset: 0.3
+
+push_to_hub: false
