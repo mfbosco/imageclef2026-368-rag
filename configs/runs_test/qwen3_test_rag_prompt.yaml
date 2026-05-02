@@ -3,7 +3,7 @@
 # Model Configuration
 device: 'cuda'
 
-dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_valid_dataset.json"
+dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_test_dataset.json"
 
 # Model Configuration
 model:
@@ -23,7 +23,7 @@ output:
 # Wandb Configuration
 wandb:
   project: "imageclef2026-rag"
-  run_name: "rag_prompt_qwen3"  # Will be auto-generated if null
+  run_name: "rag_prompt_qwen3_test"  # Will be auto-generated if null
 
 
 rag:

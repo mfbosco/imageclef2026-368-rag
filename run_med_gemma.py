@@ -480,7 +480,7 @@ def main():
         csv_output_dir = os.path.dirname(csv_output_path) or "."
         os.makedirs(csv_output_dir, exist_ok=True)
     else:
-        csv_output_dir = f"artifacts/results/{run_name}_{current_datetime}"
+        csv_output_dir = f"artifacts/results_test/{run_name}_{current_datetime}"
         os.makedirs(csv_output_dir, exist_ok=True)
         csv_output_path = f"{csv_output_dir}/{config_basename}_{project_name}_{current_datetime}.csv"
     

@@ -67,14 +67,16 @@ class ImageClefDataset(Dataset):
     def __getitem__(self, idx):
         sample = self.dataset[idx]
         
-        # Carrega a imagem apenas agora
         image = Image.open(sample["image_path"]).convert('RGB')
 
         data_dict = {
             "image": image,
-            "caption": sample["caption"],
             "id": sample["image_id"]
         }
+
+        # Only add caption if it exists
+        if "caption" in sample:
+            data_dict["caption"] = sample["caption"]
 
         return data_dict
     

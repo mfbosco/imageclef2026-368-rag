@@ -3,17 +3,15 @@
 # Model Configuration
 device: 'cuda'
 
-dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_valid_dataset.json"
+dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_test_dataset.json"
 
 # Model Configuration
 model:
-  model_id: "Qwen/Qwen3-VL-4B-Instruct"
+  model_id: "google/medgemma-1.5-4b-it"
   use_quantization: true
   attn_implementation: "eager"
 
-medsiglip:
-  model: "google/medsiglip-448"
-  auth_token: ""
+MODEL_PATH: "/home/ia368/projetos/imageclef2026-rag/artifacts/fine_tuning/medgemma-15-4b-it-sft-lora-train-IC2026"
 
 # Output Configuration
 output:
@@ -23,18 +21,12 @@ output:
 # Wandb Configuration
 wandb:
   project: "imageclef2026-rag"
-  run_name: "rag_prompt_qwen3"  # Will be auto-generated if null
-
-
-rag:
-  rag_top_k: 3
-  faiss_index_path: "/home/ia368/projetos/imageclef2026-rag/artifacts/vector_store/IC2026_image_faiss.index"
-  train_captions: "/home/ia368/projetos/imageclef2026-rag/artifacts/embeddings/IC2026_medsiglip_train_captions.pt"
+  run_name: "simple_prompt_med15_4B_finetuned"  # Will be auto-generated if null
 
 # Inference Evaluation Configuration (for run.py)
 evaluation:
-  prompt_strategy: "rag"  # Options: "simple", "few_shot", "rag"
-  use_base_model: true  # If true, use base model; if false, try to load fine-tuned model
+  prompt_strategy: "simple"  # Options: "simple", "few_shot", "rag"
+  use_base_model: false  # If true, use base model; if false, try to load fine-tuned model
   eval_on_val: false  # If true, evaluate on validation set; if false, use test set
   compute_metrics: false  # If true, compute BERTScore and ROUGE (requires eval_on_val=true)
   n_few_shot: 0  # Number of few-shot examples (0 for simple prompt)
