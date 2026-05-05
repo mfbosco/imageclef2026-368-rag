@@ -15,10 +15,14 @@ concepts_path: "/home/ia368/projetos/imageclef2026-rag/dev_caption/concepts.csv"
 # ── Prediction threshold (ignored when --sweep is used) ───────────────────────
 threshold: 0.25
 
-# ── Threshold sweep range (only used with --sweep flag) ───────────────────────
-sweep_min:  0.10
-sweep_max:  0.50
-sweep_step: 0.01
+# ── Two-phase sweep (only used with --sweep flag) ─────────────────────────────
+# Range is derived automatically from the similarity distribution (p50 → p99).
+# coarse_n: number of steps in the first pass (full range)
+# fine_n: number of steps in the second pass (±fine_window around coarse best)
+# fine_window: half-width of the fine search window
+sweep_coarse_n:    40
+sweep_fine_n:      50
+sweep_fine_window: 0.025
 
 # ── Output ────────────────────────────────────────────────────────────────────
 output_dir:  "/home/ia368/projetos/imageclef2026-rag/artifacts/results/cui_prediction"
