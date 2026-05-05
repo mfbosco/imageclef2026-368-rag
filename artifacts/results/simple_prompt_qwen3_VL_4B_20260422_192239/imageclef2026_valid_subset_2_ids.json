@@ -1,0 +1,12 @@
+[
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_5803.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_5803",
+    "caption": "Lateral chest X-ray from five months prior demonstrating a fractured sternal wire located at the posterior sternal table (arrow)"
+  },
+  {
+    "image_path": "/home/ia368/projetos/imageclef2026-rag/dev_caption/valid/ImageCLEFmedical_Caption_2026_valid_5804.jpg",
+    "image_id": "ImageCLEFmedical_Caption_2026_valid_5804",
+    "caption": "Coronal CT scan shoes expansive mass involving hard palate."
+  }
+]

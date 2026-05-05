@@ -1,0 +1,8 @@
+docker run \
+  --rm \
+  -v /home/ia368/projetos/imageclef2026-rag/artifacts/results/cui_prediction/cui_medsiglip_valid_predictions.csv:/app/submission.csv \
+  -v /tmp/concepts_valid_only.csv:/app/data/valid/concepts.csv \
+  -v /home/ia368/projetos/imageclef2026-rag/evaluation/concept_detection/data/valid/concepts_manual.csv:/app/data/valid/concepts_manual.csv \
+  -v /home/ia368/projetos/imageclef2026-rag/artifacts/results/cui_prediction:/app/output \
+  concept_detection_evaluator \
+  valid

@@ -1,0 +1,20 @@
+device: cuda
+dataset: /home/ia368/projetos/imageclef2026-rag/artifacts/results/simple_prompt_fine_tune_full_20260408_084221/imageclef2026_valid_subset_8_ids.json
+model:
+  model_id: google/medgemma-4b-it
+  use_quantization: true
+  attn_implementation: eager
+evaluation:
+  prompt_strategy: simple
+  use_base_model: false
+  eval_on_val: false
+  compute_metrics: false
+  n_few_shot: 0
+  max_new_tokens: 512
+  temperature: 0.7
+MODEL_PATH: /home/ia368/projetos/imageclef2026-rag/artifacts/fine_tuning/medgemma-4b-it-sft-lora-full-train-IC2026
+output:
+  report_to: wandb
+wandb:
+  project: imageclef2026-rag
+  run_name: simple_prompt_fine_tune_full

@@ -1,0 +1,14 @@
+medsiglip:
+  model: "google/medsiglip-448"
+  auth_token: ""
+
+cui_mapping: "/home/ia368/projetos/imageclef2026-rag/dev_caption/cui_mapping.csv"
+
+parameters:
+  batch_size: 64
+
+device: 'cuda'
+
+output_dir: "/home/ia368/projetos/imageclef2026-rag/artifacts/embeddings"
+
+output_name: "IC2026_cui_mapping"

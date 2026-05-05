@@ -1,0 +1,33 @@
+# ── Caption predictions to use as input ──────────────────────────────────────
+# Qualquer CSV gerado pelo pipeline de caption com colunas ID,Caption
+predictions_csv: "/home/ia368/projetos/imageclef2026-rag/artifacts/results/simple_prompt_med15_4B_finetuned_20260422_102940/simple_prompt_1.5_fine_tuned_epochs_imageclef2026-rag_20260422_102940.csv"
+
+# ── MedSigLIP (para encodar as captions) ─────────────────────────────────────
+medsiglip:
+  model: "google/medsiglip-448"
+  auth_token: ""
+
+parameters:
+  batch_size: 64
+
+device: 'cuda'
+
+# ── CUI embeddings (gerados por data/CUI_embeddings.py) ──────────────────────
+cui_embeddings:
+  text_embeddings: "/home/ia368/projetos/imageclef2026-rag/artifacts/embeddings/IC2026_cui_mapping_text_embeddings.pt"
+  ids:             "/home/ia368/projetos/imageclef2026-rag/artifacts/embeddings/IC2026_cui_mapping_ids.pt"
+
+# ── Ground truth (para avaliação no run_cui_prediction.py) ───────────────────
+concepts_path: "/home/ia368/projetos/imageclef2026-rag/dev_caption/concepts.csv"
+
+# ── Threshold (ignorado com --sweep) ─────────────────────────────────────────
+threshold: 0.50
+
+# ── Two-phase sweep ───────────────────────────────────────────────────────────
+sweep_coarse_n:    40
+sweep_fine_n:      50
+sweep_fine_window: 0.025
+
+# ── Output ────────────────────────────────────────────────────────────────────
+output_dir:  "/home/ia368/projetos/imageclef2026-rag/artifacts/results/cui_from_caption"
+output_name: "cui_caption_medsiglip_valid"

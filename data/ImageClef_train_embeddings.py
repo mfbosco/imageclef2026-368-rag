@@ -67,14 +67,16 @@ class ImageClefDataset(Dataset):
     def __getitem__(self, idx):
         sample = self.dataset[idx]
         
-        # Carrega a imagem apenas agora
         image = Image.open(sample["image_path"]).convert('RGB')
 
         data_dict = {
             "image": image,
-            "caption": sample["caption"],
             "id": sample["image_id"]
         }
+
+        # Only add caption if it exists
+        if "caption" in sample:
+            data_dict["caption"] = sample["caption"]
 
         return data_dict
     
@@ -133,6 +135,10 @@ def generate_image_embedding(model, processor, image, device):
 
         feats = feats / feats.norm(dim=-1, keepdim=True)
 
+    # Clean up
+    del inputs
+    torch.cuda.empty_cache()
+    
     return feats.squeeze(0).cpu()
 
 

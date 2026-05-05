@@ -1,6 +1,7 @@
 { 
-    "score": 0.3427,
-    "score_secondary": 0.0,
+    "overall": 0.3427,
+    "relevancy": 0.5344,
+    "factuality": 0.1511,
     "bert": 0.6086,
     "rouge": 0.271,
     "similarity": 0.9324,

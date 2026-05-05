@@ -1,0 +1,35 @@
+# Few Shot Prompt Evaluation Configuration for run.py
+
+# Model Configuration
+device: 'cuda'
+
+dataset: "/home/ia368/projetos/imageclef2026-rag/artifacts/datasets/imageclef2026_valid_dataset.json"
+
+# Model Configuration
+model:
+  model_id: "google/medgemma-4b-it"
+  use_quantization: true
+  attn_implementation: "eager"
+
+MODEL_PATH: "/home/ia368/projetos/imageclef2026-rag/artifacts/fine_tuning/mg_154b_rag_full_lora"
+
+# Output Configuration
+output:
+  report_to: "wandb"  # Options: "wandb", "tensorboard", "none"
+  # Note: WANDB_API_KEY should be set in environment or .env file
+
+# Wandb Configuration
+wandb:
+  project: "imageclef2026-rag"
+  run_name: "few_shot_med15_4B_finetuned_with_rag"  # Will be auto-generated if null
+
+# Inference Evaluation Configuration (for run.py)
+evaluation:
+  prompt_strategy: "few_shot"  # Options: "simple", "few_shot", "rag"
+  use_base_model: False  # If true, use base model; if false, try to load fine-tuned model
+  eval_on_val: false  # If true, evaluate on validation set; if false, use test set
+  compute_metrics: false  # If true, compute BERTScore and ROUGE (requires eval_on_val=true)
+  n_few_shot: 3  # Number of few-shot examples (0 for simple prompt)
+  max_new_tokens: 512
+  temperature: 0.7
+  # Note: CSV output path is automatically generated as: config_name_project_run_name_datetime.csv

@@ -1,4 +1,5 @@
 import torch
+import transformers
 from transformers import AutoProcessor, AutoModelForImageTextToText, BitsAndBytesConfig
 from typing import Any
 from torch.utils.data import Dataset, Subset
@@ -153,10 +154,35 @@ def apply_debug_subset(train_dataset, eval_dataset, debug):
 # =========================
 # Trainer
 # =========================
+class EarlyStoppingAfterEpoch(transformers.TrainerCallback):
+    """Early stopping that only activates after a minimum number of epochs."""
+    def __init__(self, patience=5, threshold=1e-7, min_epochs=1):
+        self.patience = patience
+        self.threshold = threshold
+        self.min_epochs = min_epochs
+        self.best_metric = None
+        self.wait = 0
+
+    def on_evaluate(self, args, state, control, metrics, **kwargs):
+        if state.epoch is not None and state.epoch < self.min_epochs:
+            return
+
+        metric_value = metrics.get("eval_loss")
+        if metric_value is None:
+            return
+
+        if self.best_metric is None or metric_value < self.best_metric - self.threshold:
+            self.best_metric = metric_value
+            self.wait = 0
+        else:
+            self.wait += 1
+            if self.wait >= self.patience:
+                control.should_training_stop = True
+
+
 def build_trainer(model, processor, train_dataset, eval_dataset, collate_fn, args_config):
     from peft import LoraConfig
     from trl import SFTConfig, SFTTrainer
-    from transformers import EarlyStoppingCallback
 
     peft_config = LoraConfig(
         lora_alpha=16,
@@ -170,9 +196,10 @@ def build_trainer(model, processor, train_dataset, eval_dataset, collate_fn, arg
 
     args = SFTConfig(**args_config)
 
-    early_stopping_cb = EarlyStoppingCallback(
-        early_stopping_patience=5,
-        early_stopping_threshold=1e-7
+    early_stopping_cb = EarlyStoppingAfterEpoch(
+        patience=10,
+        threshold=1e-7,
+        min_epochs=1,
     )
 
     trainer = SFTTrainer(
@@ -231,17 +258,17 @@ def main():
     args_config = dict(
         output_dir=config["output_dir"],
         num_train_epochs=1 if debug else 5,
-        per_device_train_batch_size=3,
-        per_device_eval_batch_size=2,
-        gradient_accumulation_steps=1 if debug else 5,
+        per_device_train_batch_size=2,
+        per_device_eval_batch_size=1,
+        gradient_accumulation_steps=1 if debug else 8,
         gradient_checkpointing=True,
         optim="adamw_torch_fused",
         logging_steps=1 if debug else 50,
         dataloader_num_workers=16,
         eval_strategy="steps",
-        eval_steps=5 if debug else 25,
+        eval_steps=5 if debug else 50,
         save_strategy="steps",
-        save_steps=5 if debug else 25,
+        save_steps=5 if debug else 50,
         save_total_limit=2,
         load_best_model_at_end=True,
         metric_for_best_model="eval_loss",
