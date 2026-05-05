@@ -19,6 +19,7 @@ artifacts/embeddings/
 artifacts/embeddings_roco/
 artifacts/fine_tuning/
 artifacts/vector_store/
+artifacts/results/**/*.pt
 
 # other files to ignore
 __pycache__/
@@ -28,3 +29,6 @@ __pycache__/
 nohup.out 
 # log file generated during training
 *.log 
+
+# ignore .pt: models, checkpoints, embeddings, etc
+*.pt
